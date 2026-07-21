@@ -1,0 +1,4 @@
+{% extends 'base.html' %}{% block content %}<div class="page-head"><h1>포인트 내역</h1><a class="button" href="{{ url_for('transfers.create') }}">송금</a></div>
+<p>현재 잔액 <strong>{{ current_user.balance }}P</strong></p><div class="list">
+{% for t in transfers %}<div class="row"><strong>{% if t.sender_id == current_user.id %}-{{ t.amount }}P → {{ t.receiver.username }}{% else %}+{{ t.amount }}P ← {{ t.sender.username }}{% endif %}</strong><span>{{ t.created_at.strftime('%Y-%m-%d %H:%M') }}</span></div>{% else %}<p>거래 내역이 없습니다.</p>{% endfor %}</div>{% endblock %}
+

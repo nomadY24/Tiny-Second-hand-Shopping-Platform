@@ -1,0 +1,9 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="page-head"><h1>상품 찾기</h1><a class="button" href="{{ url_for('products.create') }}">상품 등록</a></div>
+<form class="search" method="get"><input class="input" name="q" maxlength="100" value="{{ query }}" placeholder="상품명 또는 설명"><button class="button" type="submit">검색</button></form>
+<div class="grid">
+{% for product in products %}<a class="card" href="{{ url_for('products.detail', product_id=product.id) }}"><span class="badge">{{ product.status }}</span><h3>{{ product.title }}</h3><strong>{{ '{:,}'.format(product.price) }}P</strong><p>{{ product.description|truncate(90) }}</p></a>
+{% else %}<p>검색 결과가 없습니다.</p>{% endfor %}
+</div>{% endblock %}
+

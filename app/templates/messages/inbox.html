@@ -1,0 +1,3 @@
+{% extends 'base.html' %}{% block content %}<h1>메시지</h1><div class="list">
+{% for partner, message in partners %}<a class="row" href="{{ url_for('messages.conversation', user_id=partner.id) }}"><strong>{{ partner.username }}</strong><span>{{ message.content|truncate(70) }}</span></a>{% else %}<p>대화가 없습니다. 상품 상세에서 판매자에게 메시지를 보내 보세요.</p>{% endfor %}</div>{% endblock %}
+

@@ -1,0 +1,4 @@
+{% extends 'base.html' %}{% from '_form.html' import render_form %}
+{% block title %}회원가입 · Tiny Market{% endblock %}
+{% block content %}<div class="panel narrow"><h1>회원가입</h1><p>아이디 3자 이상, 비밀번호 8자 이상을 사용하세요.</p>{{ render_form(form) }}</div>{% endblock %}
+

@@ -1,0 +1,5 @@
+{% extends 'base.html' %}{% from '_form.html' import render_form %}
+{% block content %}<h1>{{ other.username }}님과의 대화</h1><div class="messages">
+{% for message in messages %}<div class="bubble {% if message.sender_id == current_user.id %}mine{% endif %}"><strong>{{ message.sender.username }}</strong><p>{{ message.content }}</p></div>{% else %}<p>첫 메시지를 보내 보세요.</p>{% endfor %}</div>
+<div class="panel">{{ render_form(form) }}</div>{% endblock %}
+

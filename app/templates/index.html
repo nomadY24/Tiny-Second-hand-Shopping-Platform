@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% block content %}
+<section class="hero">
+  <p class="eyebrow">SECURE SECOND-HAND MARKET</p>
+  <h1>작지만 안전한 중고거래</h1>
+  <p>상품을 찾고, 판매자와 대화하고, 가상 포인트로 거래하세요.</p>
+  <a class="button" href="{{ url_for('products.list_products') }}">상품 둘러보기</a>
+</section>
+<h2>최근 상품</h2>
+<div class="grid">
+  {% for product in products %}
+  <a class="card" href="{{ url_for('products.detail', product_id=product.id) }}">
+    <span class="badge">{{ {'selling':'판매 중','reserved':'예약 중','sold':'판매 완료'}[product.status] }}</span>
+    <h3>{{ product.title }}</h3><strong>{{ '{:,}'.format(product.price) }}P</strong>
+    <p>{{ product.description | truncate(80) }}</p><small>판매자 {{ product.seller.username }}</small>
+  </a>
+  {% else %}<p>아직 등록된 상품이 없습니다.</p>{% endfor %}
+</div>
+{% endblock %}
+

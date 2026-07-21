@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% block title %}Tiny Market{% endblock %}</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+  <header class="site-header">
+    <a class="brand" href="{{ url_for('main.index') }}">Tiny Market</a>
+    <nav>
+      <a href="{{ url_for('products.list_products') }}">상품</a>
+      {% if current_user.is_authenticated %}
+        <a href="{{ url_for('products.create') }}">상품 등록</a>
+        <a href="{{ url_for('messages.inbox') }}">메시지</a>
+        <a href="{{ url_for('transfers.history') }}">포인트 {{ current_user.balance | int }}P</a>
+        <a href="{{ url_for('reports.create') }}">신고</a>
+        {% if current_user.is_admin %}<a href="{{ url_for('admin.dashboard') }}">관리자</a>{% endif %}
+        <a href="{{ url_for('auth.profile') }}">내 정보</a>
+        <form class="inline" method="post" action="{{ url_for('auth.logout') }}">
+          <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+          <button class="link-button" type="submit">로그아웃</button>
+        </form>
+      {% else %}
+        <a href="{{ url_for('auth.login') }}">로그인</a>
+        <a href="{{ url_for('auth.register') }}">회원가입</a>
+      {% endif %}
+    </nav>
+  </header>
+  <main class="container">
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% for category, message in messages %}<div class="alert {{ category }}">{{ message }}</div>{% endfor %}
+    {% endwith %}
+    {% block content %}{% endblock %}
+  </main>
+  <footer>교육용 가상 거래 플랫폼 · 실제 금융 거래 없음</footer>
+</body>
+</html>
+

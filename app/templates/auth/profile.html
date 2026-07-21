@@ -1,0 +1,3 @@
+{% extends 'base.html' %}{% from '_form.html' import render_form %}
+{% block content %}<div class="panel narrow"><h1>내 정보</h1><p><strong>{{ current_user.username }}</strong> · {{ current_user.status }} · {{ current_user.balance }}P</p>{{ render_form(form) }}</div>{% endblock %}
+
